@@ -16,9 +16,9 @@ hash.set "newFurniture" "list.push world.furniture (mem.keep (mem.copy default_f
 
 mem.clear @-:-;
 
-do newCreature repeat (random 1 100000);
-do newItem repeat (random 1 100000);
-do newFurniture repeat (random 1 100000);
+do newCreature repeat (random 1 10000);
+do newItem repeat (random 1 10000);
+do newFurniture repeat (random 1 10000);
 
 ls;
 return 123;
