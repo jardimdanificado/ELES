@@ -1,0 +1,15 @@
+hash.set "title" "ELES";
+hash.set "version" "0.0.1";
+
+hash.set "world.creature" (list.new);
+hash.set "world.item" (list.new);
+hash.set "world.furniture" (list.new);
+
+hash.set "newCreature" (file.read (string.concat file.path "script/newCreature.br"));
+
+do newCreature repeat 25;
+mem.clear @-:-;
+
+
+
+return 123;
