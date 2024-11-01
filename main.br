@@ -16,8 +16,11 @@ hash.set "newFurniture" "list.push world.furniture (mem.keep (mem.copy default_f
 
 mem.clear @-:-;
 
+seed (os.clock);
 do newCreature repeat (random 1 10000);
+seed (os.clock);
 do newItem repeat (random 1 10000);
+seed (os.clock);
 do newFurniture repeat (random 1 10000);
 
 ls;
