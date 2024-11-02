@@ -1,27 +1,57 @@
 hash.set "title" "ELES";
-hash.set "version" "0.0.2";
+hash.set "version" "0.0.3";
 
 hash.set "world.creature" (list.new);
 hash.set "world.item" (list.new);
 hash.set "world.furniture" (list.new);
 
 hash.set "default_creature" (raw.from.bytes 0 0 255 255 255 255 255 0);
-hash.set "newCreature" "list.push world.creature (mem.keep (mem.copy default_creature))";
-
 hash.set "default_item" (raw.from.bytes 0 0 255 0 0 0 0 0);
-hash.set "newItem" "list.push world.item (mem.keep (mem.copy default_item))";
-
 hash.set "default_furniture" (raw.from.bytes 0 0 255 0 0 0 0 0);
-hash.set "newFurniture" "list.push world.furniture (mem.keep (mem.copy default_furniture))";
+
+hash.set "_0" 0;
+hash.set "_1" 1;
+hash.set "_255" 255;
+
+hash.set "newCreature" 
+"
+    list.push world.creature (mem.keep 
+        (mem.copy default_creature)
+    )
+";
+
+hash.set "newItem" 
+"
+    list.push world.item (mem.keep 
+        (mem.copy default_item)
+    )
+";
+
+hash.set "newFurniture" 
+"
+    list.push world.furniture (mem.keep 
+        (mem.copy default_furniture)
+    )
+";
 
 mem.clear @-:-;
+seed (os.clock);
+do newCreature repeat 100000;
 
-seed (os.clock);
-do newCreature repeat (random 1 10000);
-seed (os.clock);
-do newItem repeat (random 1 10000);
-seed (os.clock);
-do newFurniture repeat (random 1 10000);
+
+hash.set "counter" 0;
+
+do 
+(
+    mem.keep 
+    "
+        byte.set (list.get world.creature counter) _0 (random _0 _255);
+        byte.set (list.get world.creature counter) _1 (random _0 _255);
+        seed (os.clock);
+        mem.clear @100000:-1;
+        # (incr counter);
+    "
+) repeat (list.len world.creature);
 
 ls;
 return 123;
