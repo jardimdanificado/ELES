@@ -5,13 +5,11 @@ hash.set "world.creature" (list.new);
 hash.set "world.item" (list.new);
 hash.set "world.furniture" (list.new);
 
-hash.set "default_creature" (raw.from.bytes 0 0 255 255 255 255 255 0);
+hash.set "default_creature" (raw.from.bytes 0 0 255 255 255 255 0 0);
 hash.set "default_item" (raw.from.bytes 0 0 255 0 0 0 0 0);
 hash.set "default_furniture" (raw.from.bytes 0 0 255 0 0 0 0 0);
-
-hash.set "_0" 0;
-hash.set "_1" 1;
-hash.set "_255" 255;
+mem.delete "[who, who], [target, target], what, how, [depends, depends]";
+hash.set "default_action" (raw.from.bytes 0 0 0 0 0 0 0 0);
 
 hash.set "newCreature" 
 "
@@ -35,23 +33,22 @@ hash.set "newFurniture"
 ";
 
 mem.clear @-:-;
-seed (os.clock);
-do newCreature repeat 100000;
-
+mem.delete "this will create 1000 creatures";
+do newCreature repeat 10000;
 
 hash.set "counter" 0;
-
 do 
 (
     mem.keep 
     "
-        byte.set (list.get world.creature counter) _0 (random _0 _255);
-        byte.set (list.get world.creature counter) _1 (random _0 _255);
+        byte.set (list.get world.creature counter) 0 (random 0 255);
+        byte.set (list.get world.creature counter) 1 (random 0 255);
         seed (os.clock);
-        mem.clear @100000:-1;
-        # (incr counter);
+        mem.clear @10120:-1;
+        incr counter;
     "
 ) repeat (list.len world.creature);
+
 
 ls;
 return 123;
