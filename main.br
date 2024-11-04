@@ -37,17 +37,13 @@ mem.delete "this will create 1000 creatures";
 do newCreature repeat 10000;
 
 hash.set "counter" 0;
+
 do 
-(
-    mem.keep 
-    "
-        byte.set (list.get world.creature counter) 0 (random 0 255);
-        byte.set (list.get world.creature counter) 1 (random 0 255);
-        seed (os.clock);
-        mem.clear @10120:-1;
-        incr counter;
-    "
-) repeat (list.len world.creature);
+"
+    bytes.set _creature (random 0 255) (random 0 255);
+    seed (os.clock);
+    mem.clear @10140:-1;
+" each "_creature" in world.creature;
 
 
 ls;
