@@ -1,50 +1,8 @@
-hash.set "title" "ELES";
-hash.set "version" "0.0.3";
 
-hash.set "world.creature" (list.new);
-hash.set "world.item" (list.new);
-hash.set "world.furniture" (list.new);
+# (// eles);
+hash.set "eles-handler" (dycc.dofile "src/eles.c");
 
-hash.set "default_creature" (raw.from.bytes 0 0 255 255 255 255 0 0);
-hash.set "default_item" (raw.from.bytes 0 0 255 0 0 0 0 0);
-hash.set "default_furniture" (raw.from.bytes 0 0 255 0 0 0 0 0);
-mem.delete "[who, who], [target, target], what, how, [depends, depends]";
-hash.set "default_action" (raw.from.bytes 0 0 0 0 0 0 0 0);
+hash.set "player" (creature.new "joao451");
+mem.clear @-1:-1;
 
-hash.set "newCreature" 
-"
-    list.push world.creature (mem.keep 
-        (mem.copy default_creature)
-    )
-";
-
-hash.set "newItem" 
-"
-    list.push world.item (mem.keep 
-        (mem.copy default_item)
-    )
-";
-
-hash.set "newFurniture" 
-"
-    list.push world.furniture (mem.keep 
-        (mem.copy default_furniture)
-    )
-";
-
-mem.clear @-:-;
-mem.delete "this will create 1000 creatures";
-do newCreature repeat 10000;
-
-hash.set "counter" 0;
-
-do 
-"
-    bytes.set _creature (random 0 255) (random 0 255);
-    seed (os.clock);
-    mem.clear @10140:-1;
-" each "_creature" in world.creature;
-
-
-ls;
-return 123;
+return 0;
