@@ -1,8 +1,0 @@
-
-# (// eles);
-hash.set "eles-handler" (dycc.dofile "src/eles.c");
-
-hash.set "player" (creature.new "joao451");
-mem.clear @-1:-1;
-
-return 0;
